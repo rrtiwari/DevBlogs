@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
@@ -13,7 +14,7 @@ const Home = () => {
     setLoading(true); // Start shimmering
     try {
       const res = await fetch(
-        `http://localhost:3000/?page=${page}&search=${search}`,
+        `${API_URL}/?page=${page}&search=${search}`,
       );
       const data = await res.json();
       if (data.success) {

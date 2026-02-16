@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
+import { API_URL } from "../config";
 
 const BlogDetails = ({ user }) => {
   const { id } = useParams();
@@ -9,10 +10,10 @@ const BlogDetails = ({ user }) => {
   const [comment, setComment] = useState("");
 
   useEffect(() => {
-    const socket = io("http://localhost:3000");
+    const socket = io(`${API_URL}`);
     const fetchBlog = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/editblog?blogId=${id}`);
+        const res = await fetch(`${API_URL}/editblog?blogId=${id}`);
         const data = await res.json();
         if (data.success) {
           setBlog(data.blogData);
@@ -32,7 +33,7 @@ const BlogDetails = ({ user }) => {
 
   const sendComment = async () => {
     if (!comment.trim()) return;
-    await fetch("http://localhost:3000/addcomment", {
+    await fetch(`${API_URL}/addcomment`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -48,7 +49,7 @@ const BlogDetails = ({ user }) => {
 
   const handleDelete = async (commentId) => {
     if (!window.confirm("Delete this comment?")) return;
-    const res = await fetch("http://localhost:3000/deletecomment", {
+    const res = await fetch(`${API_URL}/deletecomment`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ blogId: id, commentId }),

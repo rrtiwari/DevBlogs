@@ -10,6 +10,7 @@ import BlogDetails from "./pages/BlogDetails";
 import MyBlogs from "./pages/MyBlogs";
 import EditBlog from "./pages/EditBlog";
 import AdminDashboard from "./pages/AdminDashboard";
+import { API_URL } from "./config";
 import "./App.css";
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
   useEffect(() => {
     const verifySession = async () => {
       try {
-        const res = await fetch("http://localhost:3000/check-session", {
+        const res = await fetch(`${API_URL}/check-session`, {
           credentials: "include",
         });
         const data = await res.json();
@@ -38,7 +39,7 @@ function App() {
   }, []);
 
   const handleLogout = async () => {
-    await fetch("http://localhost:3000/logout", { credentials: "include" });
+    await fetch(`${API_URL}/logout`, { credentials: "include" });
     setIsAuthenticated(false);
     setUser(null);
     window.location.href = "/login";

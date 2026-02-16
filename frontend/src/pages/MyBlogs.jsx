@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 const MyBlogs = () => {
   const [blogs, setBlogs] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/myblog", { credentials: "include" })
+    fetch(`${API_URL}/myblog`, { credentials: "include" })
       .then((res) => {
         // --- NEW FIX: Handle Unauthorized Access ---
         if (res.status === 401) {
@@ -26,7 +27,7 @@ const MyBlogs = () => {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this?")) return;
-    const res = await fetch(`http://localhost:3000/deleteblog?blogId=${id}`, {
+    const res = await fetch(`${API_URL}/deleteblog?blogId=${id}`, {
       credentials: "include",
     });
 

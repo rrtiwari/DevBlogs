@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 const EditBlog = () => {
   const { id } = useParams();
@@ -8,7 +9,7 @@ const EditBlog = () => {
 
   useEffect(() => {
   
-    fetch(`http://localhost:3000/editblog?blogId=${id}`)
+    fetch(`${API_URL}/editblog?blogId=${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -20,7 +21,7 @@ const EditBlog = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(`http://localhost:3000/updateblog?blogId=${id}`, {
+    const res = await fetch(`${API_URL}/updateblog?blogId=${id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(blog),

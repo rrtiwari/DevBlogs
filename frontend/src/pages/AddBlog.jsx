@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import toast from "react-hot-toast"; 
 import "react-quill/dist/quill.snow.css";
+import { API_URL } from "../config";
 
 const AddBlog = () => {
   const [image, setImage] = useState(null);
@@ -30,7 +31,7 @@ const AddBlog = () => {
     formData.append("body", body);
 
     try {
-      const res = await fetch("http://localhost:3000/createblog", {
+      const res = await fetch(`${API_URL}/createblog`, {
         method: "POST",
         body: formData,
         credentials: "include",

@@ -1,0 +1,1 @@
+export const API_URL="https://devblogs-backend-sri7.onrender.com";

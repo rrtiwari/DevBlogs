@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { API_URL } from "../config";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -8,10 +9,10 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userRes = await fetch("http://localhost:3000/admin/users", {
+        const userRes = await fetch(`${API_URL}/admin/users`, {
           credentials: "include",
         });
-        const blogRes = await fetch("http://localhost:3000/admin/blogs", {
+        const blogRes = await fetch(`${API_URL}/admin/blogs`, {
           credentials: "include",
         });
 
@@ -29,7 +30,7 @@ const AdminDashboard = () => {
 
   const handleDeleteBlog = async (id) => {
     if (!window.confirm("Permanently delete this blog?")) return;
-    const res = await fetch(`http://localhost:3000/deleteblog?blogId=${id}`, {
+    const res = await fetch(`${API_URL}/deleteblog?blogId=${id}`, {
       credentials: "include",
     });
     if (res.ok) {
