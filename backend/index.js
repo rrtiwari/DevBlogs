@@ -9,17 +9,32 @@ const session = require("express-session");
 const { router } = require("./router");
 
 const server = http.createServer(app);
+
+const allowedOrigins = [
+  "http://localhost:5173",          
+  "https://dev-blogs-six.vercel.app"  
+];
+
+
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
     credentials: true,
   },
 });
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.set("io", io);
+
+app.use(cors({ 
+  origin: allowedOrigins, 
+  credentials: true 
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const isProduction = process.env.NODE_ENV === "production";
 
 app.use(
   session({
@@ -27,36 +42,29 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false,
-      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax", 
+      maxAge: 1000 * 60 * 60 * 24 
     },
-  }),
+  })
 );
-
-app.set("io", io);
-
-io.on("connection", (socket) => {
-  socket.on("join_blog", (blogId) => {
-    socket.join(blogId);
-  });
-});
 
 app.use("/", router);
 
-/* --- CORRECTED DATABASE CONNECTION --- */
 const user = process.env.MONGO_USER;
 const pass = process.env.MONGO_PASSWORD;
-const cluster = "cluster0.xcgbplp.mongodb.net";
-const dbName = "TodoApp";
+const cluster = "cluster0.xcgbplp.mongodb.net"; 
+const dbName = "TodoApp"; 
 
-const MONGO_URI = `mongodb+srv://${user}:${pass}@${cluster}/${dbName}?retryWrites=true&w=majority`;
+const MONGO_URI = process.env.MONGO_URI || `mongodb+srv://${user}:${pass}@${cluster}/${dbName}?retryWrites=true&w=majority`;
 
 mongoose
   .connect(MONGO_URI)
   .then(() => {
     console.log("Connected to MongoDB");
-    server.listen(3000, () => {
-      console.log("Server running on port 3000");
+    const PORT = process.env.PORT || 3000;
+    server.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
     });
   })
   .catch((err) => {
