@@ -57,5 +57,5 @@ Follow these steps to set up the project locally.
 
 ### 1. Clone the Repository
 ```bash
-git clone [https://github.com/rr_tiwari/mern-blog.git](https://github.com/rr_tiwari/mern-blog.git)
-cd mern-blog
+git clone [https://github.com/rr_tiwari/DevBlogs.git](https://github.com/rr_tiwari/DevBlogs.git)
+cd DevBlogs
