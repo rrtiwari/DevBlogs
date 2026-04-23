@@ -13,10 +13,11 @@ A professional, full-stack blogging application built with the **MERN Stack** (M
 ### 🤖 AI Integration
 * **Auto-Summarization:** Automatically generates concise 2-sentence summaries for every blog post using **Google Gemini AI**.
 
-### 📝 Content Management
+### 📝 Content Management & Real-Time Interaction
 * **Rich Text Editor:** Integrated **React-Quill** for formatting articles (Bold, Italic, Lists, Links).
 * **Image Uploads:** Seamless image hosting using **Cloudinary**.
 * **Search & Pagination:** Efficiently handles large datasets with server-side pagination and real-time search.
+* **Real-Time Comments:** Leveraged **Socket.io** to ensure user comments are updated and displayed in real-time without page refreshes.
 
 ### 🔐 Security & Authentication
 * **Role-Based Access Control (RBAC):**
@@ -25,8 +26,9 @@ A professional, full-stack blogging application built with the **MERN Stack** (M
 * **Secure Auth:** Session-based authentication with `httpOnly` cookies and `bcrypt` password hashing.
 * **Validation:** Robust backend validation using **Joi**.
 
-### 🎨 UI/UX
+### 🎨 UI/UX & Architecture
 * **Responsive Design:** Fully optimized for Mobile, Tablet, and Desktop.
+* **State Management:** Utilized **Redux** for predictable and efficient global state management across the entire application.
 * **Skeleton Loaders:** Smooth loading states for a premium user experience.
 * **Real-time Notifications:** Toast notifications for actions (Login, Publish, Error).
 
@@ -36,6 +38,7 @@ A professional, full-stack blogging application built with the **MERN Stack** (M
 
 **Frontend:**
 * React.js (Vite)
+* Redux (State Management)
 * React Router DOM
 * React Quill (Rich Text Editor)
 * React Hot Toast
@@ -44,7 +47,7 @@ A professional, full-stack blogging application built with the **MERN Stack** (M
 **Backend:**
 * Node.js & Express.js
 * MongoDB & Mongoose
-* Socket.io (Real-time updates)
+* Socket.io (Real-time updates & Comments)
 * Cloudinary (Image Storage)
 * Google Gemini API (AI)
 * Multer (File Handling)
